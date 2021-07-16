@@ -9,21 +9,21 @@
       <p>
         <label>
           Enter Number
-          <!-- Give this input the id="swapi-id" and type="number"-->
+          <!-- Give this input the id="swapi-id" and its type="number"-->
           <input >
         </label>
       </p>
 
       <p>
         <select id="swapi-category">
-          <!-- Create option with value="people" -->
-          <!-- Create option with value="planets" -->
-          <!-- Create option with value="starships" -->
+          <!-- Create an option with the value="people" -->
+          <!-- Create an option with the value="planets" -->
+          <!-- Create an option with the value="starships" -->
         </select>
       </p>
       
       <p>
-        <!-- Give this button type and value of submit -->
+        <!-- Give this button a type and value "submit" -->
         <button>Submit</button>
       </p>
     </form>
@@ -34,7 +34,7 @@
     </div>
 
     <script>
-      // No need to edit below this point
+      // No need to edit below this point!
       // Get reference to DOM elements 
       const form = document.getElementById('form')
       const results = document.getElementById('results')
@@ -61,7 +61,7 @@
         .catch(err => handleErr(err))
       }
 
-      // Handle Data returned from Stars Wars API
+      // Handle Data returned from Star Wars API
       function handleData(json) {
         console.log(json)
         // Future lesson takes this object apart to generate 
