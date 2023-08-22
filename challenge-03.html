@@ -7,10 +7,10 @@
 
     <form id="form">
       <p>
-        <label>
+        <label for="giphy-search">
           Search
           <!-- Create an input with type "text" and an id "giphy-search" -->
-          
+          <input type="text" id="giphy-search" placeholder="Search for a gif!">
         </label>
       </p>
 
@@ -18,30 +18,47 @@
         <!-- Make three input tags -->
         <!-- These will be radio buttons add a type attribute with value "radio" -->
         <!-- To work, group all radio buttons that should all have the same name -->
+        <!-- Wrap each radio button in a label and include the label text -->
         <!-- Use the names and values below for each input -->
         <!-- name="size" value="fixed_height" -->
-        <!-- name="size" value="fixed_height_small" -->
-        <!-- name="size" value="fixed_height_small_still" -->
-        <!-- Wrap each radio button in a label and include the label text -->
-        <!-- Here is the first input you make the others -->
         <label>
-          <input type="radio" name="size" value="fixed_height">
+          <input name="size" type="radio" value="fixed_height">
           Fixed Height
         </label>
+        <!-- name="size" value="fixed_height_small" -->
+        <label>
+          <input name="size" type="radio" value="fixed_height_small">
+          Fixed Height Small
+        </label>
+        <!-- name="size" value="fixed_height_small_still" -->
+        <label>
+          <input name="size" type="radio" value="fixed_height_small_still">
+          Fixed Height Small Still
+        </label>
+        <!-- Here is the first input you make the others -->
       </p>
 
       <p>
         <!-- Create an input inside a label. -->
         <!-- This will be a checkbox. Use type = checkbox to make checkboxes. -->
         <!-- Set your checkbox id to Checkbox id='cats-only'-->
+        <label for="cats-only">
+          <input type="checkbox" id="cats-only">
+          Cats Only
+        </label>
       </p>
 
       <p>
         <!-- Make another check box -->
         <!-- But Use a different id='show-title'-->
+        <label for="show-title">
+          <input type="checkbox" id="show-title">
+          Show Title
+        </label>
       </p>
 
       <p>
+        <input type="range" id="image-count" min="1" max="50">
         <!-- Make a range slider. To do so, set the input with type = range -->
         <!-- Make the range id="image-count"-->
       </p>

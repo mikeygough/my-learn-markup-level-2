@@ -1,87 +1,96 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>SWAPI Form</title>
-  </head>
-  <body>
 
-    <form id="form">
-      <p>
-        <label>
-          Enter Number
-          <!-- Give this input the id="swapi-id" and its type="number"-->
-          <input >
-        </label>
-      </p>
+<head>
+  <title>SWAPI Form</title>
+</head>
 
-      <p>
+<body>
+
+  <form id="form">
+    <p>
+      <label for="swapi-id">
+        Enter Number
+        <!-- Give this input the id="swapi-id" and its type="number"-->
+        <input id="swapi-id" type="number" placeholder="0">
+      </label>
+    </p>
+
+    <p>
+      <label for="swapi-category">Choose a category:
         <select id="swapi-category">
+          <option value="">--Please choose an option--</option>
           <!-- Create an option with the value="people" -->
+          <option value="people">People</option>
           <!-- Create an option with the value="planets" -->
+          <option value="planets">Planets</option>
           <!-- Create an option with the value="starships" -->
+          <option value="starships">Starships</option>
         </select>
-      </p>
-      
-      <p>
-        <!-- Give this button a type and value "submit" -->
-        <button>Submit</button>
-      </p>
-    </form>
+      </label>
+    </p>
 
-    <!-- No Need to Edit beyond this point -->
-    <div id="results">
-      <!-- Star Wars Data -->
-    </div>
+    <p>
+      <!-- Give this button a type and value "submit" -->
+      <button type="submit" value="submit">Submit</button>
+    </p>
+  </form>
 
-    <script>
-      // No need to edit below this point!
-      // Get reference to DOM elements 
-      const form = document.getElementById('form')
-      const results = document.getElementById('results')
-      const swapiId = document.getElementById('swapi-id')
-      const swapiCategory = document.getElementById('swapi-category')
+  <!-- No Need to Edit beyond this point -->
+  <div id="results">
+    <!-- Star Wars Data -->
+  </div>
 
-      // Handle form submit
-      form.onsubmit = (e) => {
-        e.preventDefault()
-        const i = swapiId.value
-        const cat = swapiCategory.value
-        fetchData(cat, i)
-      }
+  <script>
+    // No need to edit below this point!
+    // Get reference to DOM elements 
+    const form = document.getElementById('form')
+    const results = document.getElementById('results')
+    const swapiId = document.getElementById('swapi-id')
+    const swapiCategory = document.getElementById('swapi-category')
 
-      // Fetch data from Star Wars API
-      function fetchData(category = 'people', value = 1) {
-        category = category ? category : 'people'
-        value = value ? value : 1
-        const path = `https://swapi.dev/api/${category}/${value}`
-        console.log(path)
-        fetch(path)
+    // Handle form submit
+    form.onsubmit = (e) => {
+      e.preventDefault()
+      const i = swapiId.value
+      const cat = swapiCategory.value
+      fetchData(cat, i)
+    }
+
+    // Fetch data from Star Wars API
+    function fetchData(category = 'people', value = 1) {
+      category = category ? category : 'people'
+      value = value ? value : 1
+      const path = `https://swapi.dev/api/${category}/${value}`
+      console.log(path)
+      fetch(path)
         .then(res => res.json())
         .then(json => handleData(json))
         .catch(err => handleErr(err))
-      }
+    }
 
-      // Handle Data returned from Star Wars API
-      function handleData(json) {
-        console.log(json)
-        // Future lesson takes this object apart to generate 
-        let text = ''
+    // Handle Data returned from Star Wars API
+    function handleData(json) {
+      console.log(json)
+      // Future lesson takes this object apart to generate 
+      let text = ''
 
-        const keys = Object.keys(json)
-        const str = keys.reduce((str, key) => {
-          if (typeof json[key] === 'string') {
-            str += `<li>${key}: ${json[key]}</li>`
-          }
+      const keys = Object.keys(json)
+      const str = keys.reduce((str, key) => {
+        if (typeof json[key] === 'string') {
+          str += `<li>${key}: ${json[key]}</li>`
+        }
 
-          return str
-        }, '')
+        return str
+      }, '')
 
-        results.innerHTML = `<ul>${str}</ul>`
-      }
+      results.innerHTML = `<ul>${str}</ul>`
+    }
 
-      function handleErr(err) {
-        console.log(err.message)
-      }
-    </script>
-  </body>
+    function handleErr(err) {
+      console.log(err.message)
+    }
+  </script>
+</body>
+
 </html>
