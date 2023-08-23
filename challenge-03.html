@@ -1,155 +1,157 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Giphy Form</title>
-  </head>
-  <body>
+<html lang="en">
 
-    <form id="form">
-      <p>
-        <label for="giphy-search">
-          Search
-          <!-- Create an input with type "text" and an id "giphy-search" -->
-          <input type="text" id="giphy-search" placeholder="Search for a gif!">
-        </label>
-      </p>
+<head>
+  <title>Giphy Form</title>
+</head>
 
-      <p>
-        <!-- Make three input tags -->
-        <!-- These will be radio buttons add a type attribute with value "radio" -->
-        <!-- To work, group all radio buttons that should all have the same name -->
-        <!-- Wrap each radio button in a label and include the label text -->
-        <!-- Use the names and values below for each input -->
-        <!-- name="size" value="fixed_height" -->
-        <label>
-          <input name="size" type="radio" value="fixed_height">
-          Fixed Height
-        </label>
-        <!-- name="size" value="fixed_height_small" -->
-        <label>
-          <input name="size" type="radio" value="fixed_height_small">
-          Fixed Height Small
-        </label>
-        <!-- name="size" value="fixed_height_small_still" -->
-        <label>
-          <input name="size" type="radio" value="fixed_height_small_still">
-          Fixed Height Small Still
-        </label>
-        <!-- Here is the first input you make the others -->
-      </p>
+<body>
 
-      <p>
-        <!-- Create an input inside a label. -->
-        <!-- This will be a checkbox. Use type = checkbox to make checkboxes. -->
-        <!-- Set your checkbox id to Checkbox id='cats-only'-->
-        <label for="cats-only">
-          <input type="checkbox" id="cats-only">
-          Cats Only
-        </label>
-      </p>
+  <form id="form">
+    <p>
+      <label for="giphy-search">
+        Search
+        <!-- Create an input with type "text" and an id "giphy-search" -->
+        <input type="text" id="giphy-search" placeholder="Search for a gif!">
+      </label>
+    </p>
 
-      <p>
-        <!-- Make another check box -->
-        <!-- But Use a different id='show-title'-->
-        <label for="show-title">
-          <input type="checkbox" id="show-title">
-          Show Title
-        </label>
-      </p>
+    <p>
+      <!-- Make three input tags -->
+      <!-- These will be radio buttons add a type attribute with value "radio" -->
+      <!-- To work, group all radio buttons that should all have the same name -->
+      <!-- Wrap each radio button in a label and include the label text -->
+      <!-- Use the names and values below for each input -->
+      <!-- name="size" value="fixed_height" -->
+      <label>
+        <input name="size" type="radio" value="fixed_height">
+        Fixed Height
+      </label>
+      <!-- name="size" value="fixed_height_small" -->
+      <label>
+        <input name="size" type="radio" value="fixed_height_small">
+        Fixed Height Small
+      </label>
+      <!-- name="size" value="fixed_height_small_still" -->
+      <label>
+        <input name="size" type="radio" value="fixed_height_small_still">
+        Fixed Height Small Still
+      </label>
+    </p>
 
-      <p>
-        <input type="range" id="image-count" min="1" max="50">
-        <!-- Make a range slider. To do so, set the input with type = range -->
-        <!-- Make the range id="image-count"-->
-      </p>
-      
-      <p>
-        <button type="submit">Submit</button>
-      </p>
-    </form>
+    <p>
+      <!-- Create an input inside a label. -->
+      <!-- This will be a checkbox. Use type = checkbox to make checkboxes. -->
+      <!-- Set your checkbox id to Checkbox id='cats-only'-->
+      <label for="cats-only">
+        <input type="checkbox" id="cats-only">
+        Cats Only
+      </label>
+    </p>
 
-    <div id="results">
-      <!-- Giphy Data -->
-    </div>
+    <p>
+      <!-- Make another check box -->
+      <!-- But Use a different id='show-title'-->
+      <label for="show-title">
+        <input type="checkbox" id="show-title">
+        Show Title
+      </label>
+    </p>
 
-    <script>
-      // No need to edit below this point
-      const form = document.getElementById('form')
-      const results = document.getElementById('results')
-      const giphySearch = document.getElementById('giphy-search')
-      
-      form.onsubmit = (e) => {
-        e.preventDefault()
-        const search = giphySearch.value
-        fetchData(search)
+    <p>
+      <!-- Make a range slider. To do so, set the input with type = range -->
+      <!-- Make the range id="image-count"-->
+      <input type="range" id="image-count" min="1" max="50">
+    </p>
+
+    <p>
+      <button type="submit">Submit</button>
+    </p>
+  </form>
+
+  <div id="results">
+    <!-- Giphy Data -->
+  </div>
+
+  <script>
+    // No need to edit below this point
+    const form = document.getElementById('form')
+    const results = document.getElementById('results')
+    const giphySearch = document.getElementById('giphy-search')
+
+    form.onsubmit = (e) => {
+      e.preventDefault()
+      const search = giphySearch.value
+      fetchData(search)
+    }
+
+    function fetchData(q = 'cats') {
+      let catsOnly = false
+
+      console.log(document.getElementById('cats-only'))
+
+      if (document.getElementById('cats-only') !== null) {
+        catsOnly = document.getElementById('cats-only').checked
       }
 
-      function fetchData(q = 'cats') {
-        let catsOnly = false
-
-        console.log(document.getElementById('cats-only'))
-
-        if (document.getElementById('cats-only') !== null) {
-          catsOnly = document.getElementById('cats-only').checked 
-        }
-
-        const search = catsOnly ? 'cats '+q : q
-        const api = '3sjrF3zZatafCQZ4pRCCuf5zoOfsctBm'
-        const path = `https://api.giphy.com/v1/gifs/search?api_key=${api}&q=${search}`
-        fetch(path)
+      const search = catsOnly ? 'cats ' + q : q
+      const api = '3sjrF3zZatafCQZ4pRCCuf5zoOfsctBm'
+      const path = `https://api.giphy.com/v1/gifs/search?api_key=${api}&q=${search}`
+      fetch(path)
         .then(res => res.json())
         .then(json => handleData(json))
         .catch(err => handleErr(err))
+    }
+
+    function handleData(json) {
+      console.log(json)
+      let showTitle = false
+      if (document.getElementById('show-title') !== null) {
+        showTitle = document.getElementById('show-title').checked
       }
 
-      function handleData(json) {
-        console.log(json)
-        let showTitle = false
-        if (document.getElementById('show-title') !== null) {
-          showTitle = document.getElementById('show-title').checked
-        }
-        
-        let size = 'fixed_height'
-        try {
-          size = Array.from(document.getElementsByName('size')).filter(item => item.checked)[0].value
-        } catch {
-          // 
-        }
+      let size = 'fixed_height'
+      try {
+        size = Array.from(document.getElementsByName('size')).filter(item => item.checked)[0].value
+      } catch {
+        // 
+      }
 
-        let count = 3
-        try {
-          count = document.getElementById('image-count').value
-        } catch {
-          // 
-        }
+      let count = 3
+      try {
+        count = document.getElementById('image-count').value
+      } catch {
+        // 
+      }
 
-        let str = ''
-        for (let i = 0; i < count; i += 1) {
-          const src = json.data[i].images[size].url
-          let title = ''
-          if (showTitle) {
-            title = json.data[i].title
-          }
-          str += `
+      let str = ''
+      for (let i = 0; i < count; i += 1) {
+        const src = json.data[i].images[size].url
+        let title = ''
+        if (showTitle) {
+          title = json.data[i].title
+        }
+        str += `
           <div>
             <img src="${src}">
             <p>${title}</p>
           </div>`
-        }
-        
-        results.innerHTML = str
       }
 
-      function handleErr(err) {
-        console.log(err.message)
-      }
-    </script>
+      results.innerHTML = str
+    }
 
-    <style>
-        #results {
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr 1fr;
-        }
-    </style>
-  </body>
+    function handleErr(err) {
+      console.log(err.message)
+    }
+  </script>
+
+  <style>
+    #results {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  </style>
+</body>
+
 </html>
